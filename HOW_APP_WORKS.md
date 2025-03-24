@@ -30,4 +30,9 @@ sequenceDiagram
     Runtime->>Update: Sends "Password" message when typing password
     Update->>Runtime: Returns model with updated password string
     Runtime->>View: Renders view with updated model
+
+    View->>Runtime: Triggers "Submit" message<br />when "CLAIM YOUR FREE TRIAL" button is clicked
+    Runtime->>Update: Sends "Submit" message with current model
+    Update->>Runtime: Returns model with some updated error models(do some validation)
+    Runtime->>View: Renders view with updated model(display some error status if any)
 ```
