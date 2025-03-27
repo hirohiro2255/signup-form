@@ -4,10 +4,13 @@
   --secondary-light-red: hsl(354, 100%, 66%);
   --gray: hsl(0, 0%, 59%);
   --very-dark-blue: hsl(209, 33%, 12%);
-  font-family: "Libre Franklin", sans-serif;
 }
 
 body {
+  font-family: "Poppins", sans-serif;
+  background-image: url("./../assets/bg-intro-mobile.png");
+  background-size: cover;
+  background-color: rgba(255, 81.6, 98.94, 0.74);
 }
 
 h1,
@@ -15,4 +18,59 @@ h2,
 h3,
 p {
   margin: 0;
+}
+
+.container-wrapper {
+  width: min(87.2%, 1110px);
+  margin-right: auto;
+  margin-left: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 64px;
+  margin-top: 88px;
+}
+
+.heading {
+  font-size: clamp(1.75rem, 1.3571rem + 1.9643vw, 3.125rem);
+  font-weight: bolder;
+  color: white;
+  line-height: 1.28;
+  letter-spacing: -0.29px;
+  text-align: center;
+}
+
+.detail-description {
+  margin-top: 16px;
+  color: white;
+  line-height: 1.625;
+  text-align: center;
+  font-weight: 500;
+  font-size: 1rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.form-heading-wrapper {
+  /*  background-color: var(--primary-blue);*/
+  background-color: #5e54a4;
+  padding-top: 18px;
+  padding-bottom: 18px;
+  border-radius: 10px;
+  box-shadow: 0px 8px 0px 0px rgba(0, 0, 0, 0.1469);
+}
+
+.sub-heading {
+  font-size: 0.9375rem;
+  color: white;
+  font-weight: 400;
+  line-height: 1.73;
+  letter-spacing: 0.27px;
+  width: min(59.3%, 319px);
+  margin-right: auto;
+  margin-left: auto;
+  text-align: center;
 }
