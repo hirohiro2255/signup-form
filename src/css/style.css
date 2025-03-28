@@ -116,6 +116,7 @@ p {
   line-height: 1.857;
   letter-spacing: 0.25px;
   color: #3d3b48;
+  opacity: 0.75;
 }
 
 .error-msg {
