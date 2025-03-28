@@ -2,7 +2,7 @@ module Main exposing (main)
 
 import Browser
 import Html exposing (Html, button, div, form, h1, h2, input, label, main_, p, section, small, strong, text)
-import Html.Attributes exposing (class, classList, for, id, type_)
+import Html.Attributes exposing (class, classList, for, id, placeholder, type_)
 import Html.Events exposing (onInput, onSubmit)
 
 
@@ -20,14 +20,18 @@ main =
 
 type alias Model =
     { firstName : String
+    , lastName : String
     , firstNameError : Maybe String
+    , lastNameError : Maybe String
     }
 
 
 init : Model
 init =
     { firstName = ""
+    , lastName = ""
     , firstNameError = Nothing
+    , lastNameError = Nothing
     }
 
 
@@ -37,6 +41,7 @@ init =
 
 type Msg
     = FirstName String
+    | LastName String
     | Submit
 
 
@@ -48,14 +53,29 @@ update msg model =
                 | firstName = firstName
             }
 
+        LastName lastName ->
+            { model | lastName = lastName }
+
         Submit ->
-            { model | firstNameError = validateName model.firstName }
+            { model
+                | firstNameError = validateFirst model.firstName
+                , lastNameError = validateLast model.lastName
+            }
 
 
-validateName : String -> Maybe String
-validateName inputName =
+validateFirst : String -> Maybe String
+validateFirst inputName =
     if String.length inputName == 0 then
         Just "First name cannot be empty"
+
+    else
+        Nothing
+
+
+validateLast : String -> Maybe String
+validateLast inputName =
+    if String.length inputName == 0 then
+        Just "Last name cannot be empty"
 
     else
         Nothing
@@ -78,16 +98,19 @@ view model =
                         , text " then $20/mo. thereafter"
                         ]
                     ]
-                , div [ class "form-wrapper" ]
+                , div [ class "form-container" ]
                     [ form [ class "form", onSubmit Submit ]
-                        [ div []
-                            [ div []
-                                [ label [ for "firstName" ] [ text "FirstName" ]
-                                , input [ id "firstName", type_ "text", onInput FirstName ] []
-                                ]
+                        [ div [ class "input-wrapper" ]
+                            [ label [ class "label", for "firstName" ] [ text "First Name" ]
+                            , input [ class "input", id "firstName", type_ "text", placeholder "First Name", onInput FirstName ] []
                             , viewValidateName model.firstNameError
                             ]
-                        , button [] [ text "CLAIM YOUR FREE TRIAL" ]
+                        , div [ class "input-wrapper" ]
+                            [ label [ class "label", for "lastName" ] [ text "Last Name" ]
+                            , input [ class "input", id "lastName", type_ "text", placeholder "Last Name", onInput LastName ] []
+                            , viewValidateName model.lastNameError
+                            ]
+                        , button [ class "button" ] [ text "CLAIM YOUR FREE TRIAL" ]
                         ]
                     , div [] [ text model.firstName ]
                     ]
@@ -100,7 +123,7 @@ viewValidateName : Maybe String -> Html msg
 viewValidateName maybeError =
     case maybeError of
         Just errorDetail ->
-            small [] [ text errorDetail ]
+            small [ class "error-msg" ] [ text errorDetail ]
 
         Nothing ->
-            small [] [ text "OK" ]
+            small [ class "error-msg" ] [ text "" ]
