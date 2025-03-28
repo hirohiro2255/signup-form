@@ -1,6 +1,7 @@
 module Main exposing (main)
 
 import Browser
+import Char exposing (isDigit, isUpper)
 import Html exposing (Html, button, div, form, h1, h2, input, label, main_, p, section, small, strong, text)
 import Html.Attributes exposing (class, classList, for, id, placeholder, type_)
 import Html.Events exposing (onInput, onSubmit)
@@ -78,7 +79,26 @@ update msg model =
                 | firstNameError = validateFirst model.firstName
                 , lastNameError = validateLast model.lastName
                 , emailError = validateEmail model.email
+                , passwordError = validatePassword model.password
             }
+
+
+validatePassword : String -> Maybe String
+validatePassword password =
+    if String.length password == 0 then
+        Just "Password cannot be empty"
+
+    else if String.length password < 8 then
+        Just "Password must be at least 8 chars length"
+
+    else if not (String.any isUpper password) then
+        Just "Password must contain at least 1 uppercase"
+
+    else if not (String.any isDigit password) then
+        Just "Password must contain digits"
+
+    else
+        Nothing
 
 
 validateEmail : String -> Maybe String
@@ -132,22 +152,22 @@ view model =
                     [ form [ class "form", onSubmit Submit ]
                         [ div [ class "input-wrapper" ]
                             [ label [ class "label", for "firstName" ] [ text "First Name" ]
-                            , input [ class "input", id "firstName", type_ "text", placeholder "First Name", onInput FirstName ] []
+                            , input [ classList [ ( "input", True ), ( "error-input", model.firstNameError /= Nothing ) ], id "firstName", type_ "text", placeholder "First Name", onInput FirstName ] []
                             , viewValidate model.firstNameError
                             ]
                         , div [ class "input-wrapper" ]
                             [ label [ class "label", for "lastName" ] [ text "Last Name" ]
-                            , input [ class "input", id "lastName", type_ "text", placeholder "Last Name", onInput LastName ] []
+                            , input [ classList [ ( "input", True ), ( "error-input", model.lastNameError /= Nothing ) ], id "lastName", type_ "text", placeholder "Last Name", onInput LastName ] []
                             , viewValidate model.lastNameError
                             ]
                         , div [ class "input-wrapper" ]
                             [ label [ class "label", for "email" ] [ text "Email" ]
-                            , input [ class "input", id "email", type_ "text", placeholder "Email Address", onInput Email ] []
+                            , input [ classList [ ( "input", True ), ( "error-input", model.emailError /= Nothing ) ], id "email", type_ "text", placeholder "Email Address", onInput Email ] []
                             , viewValidate model.emailError
                             ]
                         , div [ class "input-wrapper" ]
                             [ label [ class "label", for "password" ] [ text "Password" ]
-                            , input [ class "input", id "password", type_ "password", placeholder "Password", onInput Password ] []
+                            , input [ classList [ ( "input", True ), ( "error-input", model.passwordError /= Nothing ) ], id "password", type_ "password", placeholder "Password", onInput Password ] []
                             , viewValidate model.passwordError
                             ]
                         , button [ class "button" ] [ text "CLAIM YOUR FREE TRIAL" ]
