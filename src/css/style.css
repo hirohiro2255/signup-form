@@ -120,6 +120,11 @@ p {
   opacity: 0.75;
 }
 
+.input:focus {
+  outline: none;
+  border: 2px solid #5e54a4;
+}
+
 .error-input {
   border: 2px solid var(--secondary-light-red);
   background-image: url("./../assets/icon-error.svg");
@@ -155,4 +160,76 @@ p {
 .button:hover {
   opacity: 0.7;
   box-shadow: none;
+}
+
+.condition {
+  text-align: center;
+  font-size: 0.6875rem;
+  line-height: 1.9;
+  color: var(--secondary-pale-blue);
+  width: 72%;
+  margin-top: 8px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.condition a {
+  text-decoration: none;
+  color: var(--secondary-light-red);
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.condition a:hover {
+  opacity: 0.6;
+}
+
+@media (600px <= width < 1025px) {
+  .form-container {
+    padding-right: 15px;
+    padding-left: 15px;
+  }
+  .form {
+    width: 90%;
+  }
+  .error-msg {
+    font-size: 0.9rem;
+  }
+}
+
+@media (1025px <= width <= 1600px) {
+  body {
+    background-image: url("./../assets/bg-intro-desktop.png");
+  }
+  .container-wrapper {
+    flex-direction: row;
+  }
+
+  .hero-container {
+    flex: 1;
+    display: flex;
+    align-items: center;
+  }
+
+  .form-group {
+    flex: 1;
+  }
+
+  .sub-heading {
+    width: unset;
+    margin: 0;
+  }
+
+  .form-container {
+    padding-top: 17px;
+    padding-bottom: 17px;
+  }
+
+  .form {
+    gap: 12px;
+  }
+
+  .error-msg {
+    font-size: 0.8rem;
+  }
 }

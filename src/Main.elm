@@ -2,8 +2,8 @@ module Main exposing (main)
 
 import Browser
 import Char exposing (isDigit, isUpper)
-import Html exposing (Html, button, div, form, h1, h2, input, label, main_, p, section, small, strong, text)
-import Html.Attributes exposing (class, classList, for, id, placeholder, type_)
+import Html exposing (Html, a, button, div, form, h1, h2, input, label, main_, p, section, small, strong, text)
+import Html.Attributes exposing (class, classList, for, href, id, placeholder, target, type_)
 import Html.Events exposing (onInput, onSubmit)
 import Regex
 
@@ -171,6 +171,14 @@ view model =
                             , viewValidate model.passwordError
                             ]
                         , button [ class "button" ] [ text "CLAIM YOUR FREE TRIAL" ]
+                        ]
+                    , p [ class "condition" ]
+                        [ text "By clicking the button, you are agreeing to our "
+                        , a
+                            [ href "https://www.frontendmentor.io/home"
+                            , target "_blank"
+                            ]
+                            [ text "Terms and Services" ]
                         ]
                     ]
                 ]
